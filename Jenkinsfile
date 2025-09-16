@@ -22,15 +22,16 @@ pipeline {
             }
         }
         stage('Test') {
+             agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                    
+                }
+            }
             steps {
                 sh '''
-                    echo Test Stage
-                    if [ -f build/index.html ]; then
-                      echo "✅ index.html found in build directory"
-                    else
-                      echo "❌ index.html not found in build directory"
-                      exit 1
-                    fi
+                    test -f build/index.html
                     npm test
                 '''
             }
