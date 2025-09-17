@@ -66,9 +66,8 @@ pipeline {
                 }
             
             }
-            }
         }
-
+        
         stage('Deploy') {
             agent {
                 docker {
