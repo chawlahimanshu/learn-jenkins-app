@@ -94,14 +94,8 @@ pipeline {
             }
         }
         stage('Approval.') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
             steps {
-                timeout(time: 1, unit: 'HOURS') {
+                timeout(time: 15, unit: 'MINUTES') {
                     input 'Ready to Deploy?'
                 }
             }
