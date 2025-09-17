@@ -60,7 +60,7 @@ pipeline {
                 stage('E2E') {
                     agent {
                         docker {
-                            image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+                            image 'mcr.microsoft.com/playwright:v1.55.0-noble'
                             reuseNode true
                         }
                     }
@@ -92,7 +92,7 @@ pipeline {
             }
 
             environment {
-                CI_ENVIRONMENT_URL = 'STAGING_URL_TO_BE_SET'
+                CI_ENVIRONMENT_URL = "${env.STAGING_URL}"
             }
 
             steps {
@@ -122,7 +122,7 @@ pipeline {
             }
 
             environment {
-                CI_ENVIRONMENT_URL = 'YOUR NETLIFY SITE URL'
+                CI_ENVIRONMENT_URL = 'https://spectacular-gumdrop-128851.netlify.app'
             }
 
             steps {
