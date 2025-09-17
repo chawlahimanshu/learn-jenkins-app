@@ -68,7 +68,6 @@ pipeline {
             }
             }
         }
-        
 
         stage('Deploy') {
             agent {
@@ -85,5 +84,5 @@ pipeline {
                 '''
             }
         }
-   
+    }
 }
