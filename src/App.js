@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const version = process.env.REACT_APP_VERSION;
+
   return (
     <div className="App">
       <header className="App-header">
@@ -15,9 +17,8 @@ function App() {
           Learn Jenkins on Udemy
         </a>
       </header>
-      <p>
-          Application version: "1.0.$BUILD_ID"
-      </p>
+
+      <p>Application version: {version}</p>
     </div>
   );
 }
