@@ -2,8 +2,6 @@ pipeline {
     agent any
 
     environment {
-        NETLIFY_SITE_ID = 'd91ff3ab-f2de-4680-a9f6-9ce3d416beb4'
-        NETLIFY_AUTH_TOKEN = credentials('netlify-token')
         REACT_APP_VERSION = "1.0.$BUILD_ID"
     }
     
@@ -27,7 +25,7 @@ pipeline {
                 '''
             }
         }
-        stage('AWS') {
+        stage('Deploy to AWS') {
             agent {
                 docker {
                     image 'amazon/aws-cli'
@@ -36,13 +34,13 @@ pipeline {
                 }
             }
             environment {
-                AWS_S3_BUCKET = 'learn-jenkins-2025917'
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'my-aws', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh '''
                         aws --version
                         aws s3 sync build s3://$AWS_S3_BUCKET
+                        aws ecs register-task-definition --cli-input-json file://aws/task-definition.json
                         '''
                     }
                 
